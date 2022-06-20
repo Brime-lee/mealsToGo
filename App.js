@@ -14,6 +14,7 @@ import { theme } from './src/infrastructure/theme';
 import { RestaurantsScreen } from './src/features/retaurants/screens/restaurants.screen';
 import { MapScreen } from './src/features/retaurants/screens/map.screen';
 import { SettingsScreen } from './src/features/retaurants/screens/settings.screen';
+import { RestaurantContextProvider } from './src/services/restaurants/restaurants.context';
 
 const Tab = createBottomTabNavigator();
 
@@ -42,25 +43,24 @@ export default function App() {
       tabBarIcon: ({ size, color }) => (
         <Ionicons name={iconName} size={size} color={color} />
       ),
+      headerShown: false,
+      tabBarActiveTintColor: 'tomato',
+      tabBarInactiveTintColor: 'gray',
     };
   };
 
   return (
     <>
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <Tab.Navigator
-            screenOptions={createScreenOptions}
-            tabBarOptions={{
-              activeTintColor: 'tomato',
-              inactiveTintColor: 'gray',
-            }}
-          >
-            <Tab.Screen name='Restaurants' component={RestaurantsScreen} />
-            <Tab.Screen name='Map' component={MapScreen} />
-            <Tab.Screen name='Settings' component={SettingsScreen} />
-          </Tab.Navigator>
-        </NavigationContainer>
+        <RestaurantContextProvider>
+          <NavigationContainer>
+            <Tab.Navigator screenOptions={createScreenOptions}>
+              <Tab.Screen name='Restaurants' component={RestaurantsScreen} />
+              <Tab.Screen name='Map' component={MapScreen} />
+              <Tab.Screen name='Settings' component={SettingsScreen} />
+            </Tab.Navigator>
+          </NavigationContainer>
+        </RestaurantContextProvider>
         <ExpoStatusBar style='auto' />
       </ThemeProvider>
     </>
