@@ -47,7 +47,7 @@ export const CameraScreen = ({ navigation }) => {
     return <Text>No access to camera</Text>;
   }
   return (
-    <View style={{ backgroundColor: 'black', height: '100%' }}>
+    <View style={{ backgroundColor: '#000', height: '100%' }}>
       <ProfileCamera
         ref={(camera) => (cameraRef.current = camera)}
         type={Camera.Constants.Type.front}
